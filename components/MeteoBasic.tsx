@@ -1,12 +1,13 @@
 import { View, Image, ScrollView } from "react-native";
 import { Txt } from "./Txt";
+import {Clock} from "./Clock";
 
 export function MeteoBasic({ temperature, city, interpretation }) {
     return (
         <ScrollView className="flex-1">
             <View className="px-4 pt-4">
                 <View className="items-center mb-1">
-                    <Txt className="text-2xl text-white/60 font-light">Clock</Txt>
+                    <Clock className="text-2xl text-white/60 font-light" />
                 </View>
 
                 <View className="items-center mb-6">

@@ -34,16 +34,18 @@ export function Home() {
 
     const [coords, setCoords] = useState<Coords | undefined>(undefined);
     const [weather, setWeather] = useState<Weather | null>(null);
+    const [city, setCity] = useState<string>("Chargement...");
     const currentWeather = weather ?.current;
 
 
     useEffect(() => {
-        getUserCoords().catch(err => console.error(err)); // Appel de la fonction asynchrone avec gestion des erreurs pour éviter le warning
+        getUserCoords().catch(err => console.error(err));
     }, []);
 
     useEffect(() => {
         if (coords) {
-            fetchWeather(coords).catch(err => console.error(err)); // Appel de la fonction asynchrone avec gestion des erreurs pour éviter le warning
+            fetchWeather(coords).catch(err => console.error(err));
+            fetchCity(coords).catch(err => console.error(err));
         }
     }, [coords]);
 
@@ -65,12 +67,18 @@ export function Home() {
         const weatherResponse = await MeteoAPI.fetchWeatherFromCoords(coordinate)
         setWeather(weatherResponse)
     }
+
+    // Fonction asynchrone pour récupérer le nom de la ville
+    async function fetchCity(coordinate: Coords){
+        const cityName = await MeteoAPI.fetchCityFromCoords(coordinate)
+        setCity(cityName)
+    }
     return (
         <View className="flex-1">
             {currentWeather ? (
                 <MeteoBasic
                     temperature={Math.round(currentWeather.temperature_2m)}
-                    city="Todo"
+                    city={city}
                     interpretation={getWeatherInterpretation(currentWeather.weathercode)}
                 />
             ) : (

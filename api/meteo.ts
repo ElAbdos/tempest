@@ -13,5 +13,18 @@ export class MeteoAPI {
         return response.data;
     }
 
+    static async fetchCityFromCoords(coords: Coords): Promise<string> {
+        const response = await axios.get<any>(
+            `https://nominatim.openstreetmap.org/reverse?lat=${coords.lat}&lon=${coords.lon}&format=json`,
+            {
+                headers: {
+                    'User-Agent': 'Tempest-Weather-App/1.0'
+                }
+            }
+        );
+
+        return response.data.address.city || response.data.address.town || response.data.address.village || "Location inconnue";
+    }
+
 
 }
