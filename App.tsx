@@ -12,12 +12,14 @@ export default function App() {
     });
 
     return (
-        <View className="flex-1 bg-gray-900">
+        <ImageBackground source={img_background} className="flex-1 opacity-95 p-6">
+        <View className="flex-1">
                 <SafeAreaProvider>
                     <SafeAreaView className="flex-1">
                        <Home/>
                     </SafeAreaView>
                 </SafeAreaProvider>
         </View>
+        </ImageBackground>
     );
 }

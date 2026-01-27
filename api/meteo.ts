@@ -7,7 +7,7 @@ export class MeteoAPI {
 
     static async fetchWeatherFromCoords(coords: Coords): Promise<Weather> {
         const response = await axios.get<Weather>(
-            `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto`
+            `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,weathercode,is_day&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto`
         );
 
         return response.data;

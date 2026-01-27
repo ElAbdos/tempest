@@ -1,14 +1,14 @@
-import { Text } from 'react-native';
-import { ReactNode } from 'react';
+import { Text, TextProps } from "react-native";
+import { ReactNode } from "react";
 
-type TxtProps = {
+type TxtProps = TextProps & {
     children: ReactNode;
     className?: string;
 };
 
-export function Txt({ children, className = "" }: TxtProps) {
+export function Txt({ children, className, style, ...rest }: TxtProps) {
     return (
-        <Text className={`text-white ${className}`}>
+        <Text{...rest} className={`text-white ${className}`} style={style}>
             {children}
         </Text>
     );
