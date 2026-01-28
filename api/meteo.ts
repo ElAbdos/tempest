@@ -5,11 +5,11 @@ import { Coords, Weather } from "../types/weather.types";
 export class MeteoAPI {
 
     static async fetchWeatherFromCoords(coords: Coords): Promise<Weather> {
-        const response = await axios.get<Weather>(
-            `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,weathercode,is_day,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=auto`
+        const response = await axios.get<any>(
+            `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&current=temperature_2m,weathercode,is_day,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,time&timezone=auto`
         );
 
-        return response.data;
+        return response.data as Weather;
     }
 
     static async fetchCityFromCoords(coords: Coords): Promise<string> {
@@ -25,5 +25,12 @@ export class MeteoAPI {
         return response.data.address.city || response.data.address.town || response.data.address.village || "Location inconnue";
     }
 
+    static async searchCity(query: string): Promise<{ name: string; lat: number; lon: string; country: string }[]> {
+        const response = await axios.get<any>(
+            `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=5&language=fr&format=json`
+        );
+
+        return response.data.results || [];
+    }
 
 }
