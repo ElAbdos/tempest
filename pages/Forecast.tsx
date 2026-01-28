@@ -20,7 +20,7 @@ export function Forecast() {
                         <Txt className="text-3xl text-white/90 font-light tracking-wider">{params?.city}</Txt>
                     </View>
 
-                    {params?.weathercode?.map((code: number, index: number) => {
+                    {params?.weather_code?.map((code: number, index: number) => {
                         const interpretation = getWeatherInterpretation(code);
                         const date = new Date(params.time?.[index] || Date.now() + index * 24 * 60 * 60 * 1000);
                         const dayName = date.toLocaleDateString('fr-FR', { weekday: 'short' });

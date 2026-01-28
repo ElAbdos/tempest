@@ -8,7 +8,7 @@ export type Weather = {
         time: string[];
         temperature_2m_max: number[];
         temperature_2m_min: number[];
-        weathercode: number[];
+        weather_code: number[];
         sunrise: string[];
         sunset: string[];
     };
@@ -17,7 +17,7 @@ export type Weather = {
         interval: number;
         temperature_2m: number;
         is_day: number;
-        weathercode: number;
+        weather_code: number;
         windspeed_10m: number;
     }
 };

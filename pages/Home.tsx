@@ -19,7 +19,7 @@ type RootStackParamList = {
         time: string[];
         temperature_2m_max: number[];
         temperature_2m_min: number[];
-        weathercode: number[];
+        weather_code: number[];
         sunrise: string[];
         sunset: string[];
     };
@@ -75,8 +75,16 @@ export function Home() {
 
     // Fonction pour naviguer vers la page des prévisions météo
     function GotoForecast() {
-        nav.navigate("ForeCast", { city, ...weather.daily });
-
+        const daily = weather!.daily;
+        nav.navigate("ForeCast", {
+            city,
+            time: daily.time,
+            temperature_2m_max: daily.temperature_2m_max,
+            temperature_2m_min: daily.temperature_2m_min,
+            weather_code: daily.weather_code,
+            sunrise: daily.sunrise,
+            sunset: daily.sunset
+        });
     }
 
     return (
@@ -84,7 +92,7 @@ export function Home() {
         <View className="flex-1">
             {currentWeather ? (
                 <MeteoBasic temperature={Math.round(currentWeather.temperature_2m)} city={city}
-                    interpretation={getWeatherInterpretation(currentWeather.weathercode, currentWeather.is_day)}
+                    interpretation={getWeatherInterpretation(currentWeather.weather_code, currentWeather.is_day)}
                     onPress={GotoForecast}
                 />
             ) : (
